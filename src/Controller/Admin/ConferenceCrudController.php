@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Conference;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -24,8 +25,14 @@ class ConferenceCrudController extends AbstractCrudController
             TextField::new('city'),
             TextField::new('year'),
             BooleanField::new('isInternational'),
-            AssociationField::new('comments')->hideOnForm()
+            AssociationField::new('comments')->hideOnForm(),
+            TextField::new('slug')
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud->setDefaultSort(['year' => 'ASC', 'city' => 'ASC']);
     }
 
 }

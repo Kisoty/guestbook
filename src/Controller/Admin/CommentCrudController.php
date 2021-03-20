@@ -27,7 +27,7 @@ class CommentCrudController extends AbstractCrudController
             TextField::new('author')->onlyWhenCreating(),
             TextField::new('text'),
             EmailField::new('email'),
-            DateField::new('createdAt')->onlyWhenCreating(),
+            DateField::new('createdAt')->onlyOnIndex(),
             TextField::new('photoFilename')
         ];
     }
