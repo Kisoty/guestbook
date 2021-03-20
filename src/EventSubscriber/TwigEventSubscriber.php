@@ -4,7 +4,6 @@ namespace App\EventSubscriber;
 
 use App\Repository\ConferenceRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Twig\Environment;
 
 class TwigEventSubscriber implements EventSubscriberInterface
@@ -18,12 +17,12 @@ class TwigEventSubscriber implements EventSubscriberInterface
         $this->conferenceRepository = $conferenceRepository;
     }
 
-    public function onKernelController(ControllerEvent $event)
+    public function onKernelController()
     {
         $this->twig->addGlobal('conferences', $this->conferenceRepository->findAll());
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'kernel.controller' => 'onKernelController',
