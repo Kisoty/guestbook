@@ -33,7 +33,9 @@
             <a href="{{ path('conferenceDetails', {slug: conference.slug, offset: next}) }}">Next</a>
         {% endif %}
     {% else %}
-    <div>No comments here yet...</div>
+        <div>No comments here yet...</div>
     {% endif %}
 
+    <h2>Add your own feedback</h2>
+    {{ form(commentForm) }}
 {% endblock %}
