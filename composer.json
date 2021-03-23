@@ -1,6 +1,8 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name": "kisoty/guestbook",
+    "description": "Learning symfony project with \"Symfony 5: The fast track\".",
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
