@@ -1,0 +1,28 @@
+version: '3'
+services:
+  docker-nginx:
+    build: ./docker/nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - docker-php-fpm
+  docker-php-fpm:
+    build:
+      context: ./
+      dockerfile: docker/php-fpm/development/Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - database
+    links:
+      - database
+  database:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: main
+      POSTGRES_DB: main
+    ports: [5432]
