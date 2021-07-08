@@ -29,7 +29,9 @@ class CommentCrudController extends AbstractCrudController
             TextField::new('text'),
             EmailField::new('email'),
             DateField::new('createdAt')->onlyOnIndex(),
-            ImageField::new('photoFilename', 'Photo')->setBasePath('uploads/photos')
+            ImageField::new('photoFilename', 'Photo')
+                ->setBasePath('uploads/photos')
+                ->setUploadDir('public/uploads/photos')
         ];
     }
 

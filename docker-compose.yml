@@ -21,8 +21,9 @@ services:
       - database
   database:
     image: postgres:11-alpine
-    environment:
-      POSTGRES_USER: main
-      POSTGRES_PASSWORD: main
-      POSTGRES_DB: main
-    ports: [5432]
+    env_file:
+      - .env
+    volumes:
+    - ./var/postgres-data:/var/lib/postgresql/data
+    ports:
+      - 54320:5432
