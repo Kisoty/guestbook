@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Conference;
 use App\Form\CommentFormType;
+use App\Message\NewCommentMessage;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,15 +13,18 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ConferenceController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
+    private MessageBusInterface $bus;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, MessageBusInterface $bus)
     {
         $this->entityManager = $entityManager;
+        $this->bus = $bus;
     }
 
     /**
@@ -34,8 +38,10 @@ class ConferenceController extends AbstractController
     /**
      * @Route("/conference/{slug}", name="conferenceDetails")
      */
-    public function show(Request $request, Conference $conference, CommentRepository $commentRepository, string $photoDir): Response
-    {
+    public function show(
+        Request $request, Conference $conference,
+        CommentRepository $commentRepository, string $photoDir
+    ): Response {
         $comment = new Comment();
         $form = $this->createForm(CommentFormType::class, $comment);
         $form->handleRequest($request);
@@ -57,6 +63,8 @@ class ConferenceController extends AbstractController
 
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
+
+            $this->bus->dispatch(new NewCommentMessage($comment->getId(), $request->getClientIp()));
 
             return $this->redirectToRoute('conferenceDetails', [
                 'slug' => $conference->getSlug()
