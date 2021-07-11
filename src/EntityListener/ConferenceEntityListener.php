@@ -9,7 +9,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ConferenceEntityListener
 {
-    private $slugger;
+    private SluggerInterface $slugger;
 
     public function __construct(SluggerInterface $slugger)
     {

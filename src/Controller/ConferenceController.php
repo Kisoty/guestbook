@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ConferenceController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -49,7 +49,7 @@ class ConferenceController extends AbstractController
 
                 try {
                     $photo->move($photoDir, $filename);
-                } catch (FileException $e) {
+                } catch (FileException) {
                     // can't save photo, give up
                 }
                 $comment->setPhotoFilename($filename);
