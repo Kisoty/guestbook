@@ -38,7 +38,8 @@
         "symfony/maker-bundle": "^1.29",
         "symfony/stopwatch": "^5.0",
         "symfony/var-dumper": "^5.0",
-        "symfony/web-profiler-bundle": "^5.0"
+        "symfony/web-profiler-bundle": "^5.0",
+        "phpunit/phpunit": "^9.5.0"
     },
     "config": {
         "preferred-install": {
