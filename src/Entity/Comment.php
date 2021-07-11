@@ -41,7 +41,7 @@ class Comment
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTimeImmutable $createdAt;
+    private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Conference::class, inversedBy="comments")

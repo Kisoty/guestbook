@@ -40,7 +40,7 @@ class Conference
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="conference", orphanRemoval=true)
      */
-    private ArrayCollection $comments;
+    private Collection $comments;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
