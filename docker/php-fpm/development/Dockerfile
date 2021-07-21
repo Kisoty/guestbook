@@ -6,6 +6,10 @@ RUN apk --no-cache add autoconf g++ make \
     && rm -rf /tmp/pear; apk del autoconf g++ make \
     && apk add postgresql-dev \
     && docker-php-ext-install pdo_pgsql \
+    && apk add --no-cache rabbitmq-c-dev \
+    && mkdir -p //usr/src/php/ext/amqp \
+    && curl -fsSL https://pecl.php.net/get/amqp | tar xvz -C "/usr/src/php/ext/amqp" --strip 1 \
+    && docker-php-ext-install amqp \
     && docker-php-ext-install intl;
 
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
