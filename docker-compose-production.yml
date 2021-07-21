@@ -1,13 +1,20 @@
 version: '3'
 services:
   docker-nginx:
-    build: ./docker/nginx
+    build:
+      context: docker/nginx
+      dockerfile: prod/Dockerfile
     ports:
       - "8080:80"
     volumes:
-      - ./:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - public-data:/var/www/public
+    depends_on:
+      - docker-php-fpm
   docker-php-fpm:
     build:
       context: ./
       dockerfile: docker/php-fpm/production/Dockerfile
+      volumes:
+        - public-data:/var/www/public
+volumes:
+  public-data:
