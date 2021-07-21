@@ -27,6 +27,7 @@ class CommentAuthorChanger implements CommentAuthorChangerInterface
     private function changeCommentIfAuthorCaban(Comment $comment)
     {
         if (str_contains($comment->getAuthor(), 'caban')) {
+            sleep(15);
             $comment->setAuthor('COBAN');
 
             $this->changed = true;
