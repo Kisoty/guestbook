@@ -20,22 +20,22 @@ class Conference
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $city;
+    private ?string $city = null;
 
     /**
      * @ORM\Column(type="string", length=4)
      */
-    private ?string $year;
+    private ?string $year = null;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?bool $isInternational;
+    private ?bool $isInternational = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="conference", orphanRemoval=true)
@@ -45,7 +45,7 @@ class Conference
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private ?string $slug;
+    private ?string $slug = null;
 
     public function __construct()
     {

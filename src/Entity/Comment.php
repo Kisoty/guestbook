@@ -17,42 +17,42 @@ class Comment
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
-    private ?string $author;
+    private ?string $author = null;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
-    private ?string $text;
+    private ?string $text = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Email
      */
-    private ?string $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTimeInterface $createdAt;
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Conference::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Conference $conference;
+    private ?Conference $conference = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $photoFilename;
+    private ?string $photoFilename = null;
 
     public function getId(): ?int
     {
