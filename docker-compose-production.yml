@@ -16,12 +16,20 @@ services:
       dockerfile: docker/php-fpm/production/Dockerfile
     volumes:
         - public-data:/var/www/public
-#  daemon:
-#    build:
-#      context: ./
-#      dockerfile: docker/php-fpm/production/Dockerfile
-#    restart: always
-#    command:
-#      -
+  daemon:
+    build:
+      context: ./
+      dockerfile: docker/php-fpm/production/Dockerfile
+    depends_on:
+      - api
+    links:
+      - database
+    command: [ sh, -c, php bin/console messenger:consume async --limit=731 ]
+    restart: always
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 volumes:
   public-data:
