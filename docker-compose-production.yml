@@ -1,6 +1,6 @@
 version: '3'
 services:
-  docker-nginx:
+  web:
     build:
       context: docker/nginx
       dockerfile: prod/Dockerfile
@@ -9,12 +9,19 @@ services:
     volumes:
       - public-data:/var/www/public
     depends_on:
-      - docker-php-fpm
-  docker-php-fpm:
+      - api
+  api:
     build:
       context: ./
       dockerfile: docker/php-fpm/production/Dockerfile
-      volumes:
+    volumes:
         - public-data:/var/www/public
+#  daemon:
+#    build:
+#      context: ./
+#      dockerfile: docker/php-fpm/production/Dockerfile
+#    restart: always
+#    command:
+#      -
 volumes:
   public-data:

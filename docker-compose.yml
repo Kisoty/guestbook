@@ -1,6 +1,6 @@
 version: '3'
 services:
-  docker-nginx:
+  web:
     image: nginx
     ports:
       - "8080:80"
@@ -8,8 +8,8 @@ services:
       - ./:/var/www
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
-      - docker-php-fpm
-  docker-php-fpm:
+      - api
+  api:
     build:
       context: ./
       dockerfile: docker/php-fpm/development/Dockerfile
@@ -24,7 +24,7 @@ services:
     env_file:
       - .env
     ports:
-      - 54320:5432
+      - "54320:5432"
   rabbitmq:
     image: rabbitmq:management-alpine
     ports:
