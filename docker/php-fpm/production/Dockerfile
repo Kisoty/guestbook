@@ -27,6 +27,10 @@ RUN apk add postgresql-dev \
 
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
+RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
+
 WORKDIR /var/www
 
 COPY --from=builder /var/www ./
+
+RUN chown -R www-data:www-data public
